@@ -15,7 +15,7 @@ module.exports = {
       _,
       { boxInput: { name, description, image, cost, inventory } }
     ) {
-      const createBox = new Box({
+      const newBox = new Box({
         name: name,
         description: description,
         image: image,
@@ -24,11 +24,9 @@ module.exports = {
         createdAt: new Date().toISOString(),
       });
 
-      const res = await createBox.save();
-      return {
-        id: res.id,
-        ...res._doc,
-      };
+      const createdBox = await newBox.save();
+
+      return createdBox;
     },
     async deleteBox(_, { ID }) {
       // If something deleted 1 ie: true, else 0 ie: false
